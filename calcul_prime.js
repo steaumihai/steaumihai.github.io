@@ -36,3 +36,4 @@ function calculeaza_prime(start_value)
 }
 //-------------------------------------------
 calculeaza_prime(1e9);
+
