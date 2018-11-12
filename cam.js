@@ -1,4 +1,4 @@
-document.getElementById("id_bussiness_version").innerHTML = "Bussiness version: 2018.11.12.1;
+document.getElementById("id_bussiness_version").innerHTML = "Bussiness version: 2018.11.12.1";
 document.getElementById("id_button").addEventListener("click",start);
 
 function on_success(e)
