@@ -68,5 +68,6 @@ function on_touch_end(e)
 		last_pos_array.splice(j,1);
 		
 	}
+}
 
 
