@@ -1,8 +1,9 @@
-document.getElementById("id_logic_version").innerHTML = "Logic version: 2018.11.26.8";
+document.getElementById("id_logic_version").innerHTML = "Logic version: 2018.11.26.11";
 var canvas = document.getElementById("id_canvas");
 canvas.addEventListener("touchstart", on_touch_start);
 canvas.addEventListener("touchmove", on_touch_move);
 canvas.addEventListener("touchend", on_touch_end);
+canvas.addEventListener("color", get_random_color);
 var canvas_bounding_rect = canvas.getBoundingClientRect();
 
 
@@ -13,7 +14,9 @@ function on_touch_start(e)
 	for (var i = 0; i < e.changedTouches.length; i++){
 		var context = canvas.getContext("2d");
 		context.beginPath();
-		context.fillStyle = "black";
+		context.fillStyle = last_pos_array[last_pos_array.length-1].color;
+		context.strokeStyle = last_pos_array[last_pos_array.length-1].color;
+		
 		context.arc(e.changedTouches[i].pageX - canvas_bounding_rect.left,
 					e.changedTouches[i].pageY - canvas_bounding_rect.top,
 					10,
@@ -21,7 +24,8 @@ function on_touch_start(e)
 		context.stroke();
 		var last_pos = {x:last_pos.x = e.changedTouches[i].pageX,
 					    y:last_pos.y = e.changedTouches[i].pageY,
-						id: e.changedTouches[i].identifier};
+						id: e.changedTouches[i].identifier,
+	color: get_random_color()}
 		last_pos_array.push(last_pos);
 		
 		
@@ -41,6 +45,8 @@ function on_touch_move(e)
 		var context = canvas.getContext("2d");
 		context.beginPath();
 		context.lineWidth =20;
+		context.fillStyle = last_pos_array[j].color;
+		context.strokeStyle = last_pos_array[j].color;
 		context.moveTo(last_pos_array[j].x - canvas_bounding_rect.left, last_pos_array[j].y - canvas_bounding_rect.top);
 		context.lineTo(e.changedTouches[i].pageX - canvas_bounding_rect.left,
 					e.changedTouches[i].pageY - canvas_bounding_rect.top);
@@ -48,7 +54,8 @@ function on_touch_move(e)
 		context.stroke();
 		context.beginPath();
 		context.lineWidth=1;
-		context.fillStyle = "black";
+		context.fillStyle = last_pos_array[j].color;
+		context.strokeStyle = last_pos_array[j].color;
 		context.arc(e.changedTouches[i].pageX - canvas_bounding_rect.left,
 					e.changedTouches[i].pageY - canvas_bounding_rect.top,
 					10,
@@ -70,6 +77,6 @@ function on_touch_end(e)
 		last_pos_array.splice(j,1);
 		
 	}
-}
+//------------------------------
 
 
